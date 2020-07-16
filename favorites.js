@@ -13,15 +13,16 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const quote = new Quote({
+  console.log("posting")  
+  const favorite = new Favorite({
     "quote": req.body.quote,
     "author": req.body.author,
     "image": req.body.image
   });
 
   try {
-    const newQuote = await quote.save();
-    res.status(201).json(newQuote);
+    const newFavorite = await favorite.save();
+    res.status(201).json(newFavorite);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
