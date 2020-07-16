@@ -6,7 +6,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection
-const router = require('./characters');
+const router = require('./quotes');
+const favoritesRouter = require('./favorites')
 
 
 db.on('error', (error) => console.error(error));
@@ -15,6 +16,7 @@ db.once('open', () => console.log('Connected to dertrberse!!'))
 server.use(express.json());
 server.use(cors());
 
-server.use('/characters', router)
+server.use('/quotes', router)
+server.use('/favorites', favoritesRouter)
 
 server.listen(3000, () => console.log("Server listening on port 3000!"));
