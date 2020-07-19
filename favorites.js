@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  console.log("posting")  
+  console.log("posting")
   const favorite = new Favorite({
     "quote": req.body.quote,
     "author": req.body.author,
@@ -27,5 +27,16 @@ router.post('/', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
+router.delete('/', async (req, res) => {
+  console.log("Trying to delete...")
+  const idToDelete = req.body.id
+  try {
+    const successfulDeletion = await favorite.findByIdAndDelete(idToDelete)
+    res.status(201).json(successfulDeletion);
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
 
 module.exports = router;
