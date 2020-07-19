@@ -28,12 +28,13 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   console.log("Trying to delete...")
-  const idToDelete = req.body.id
+  const idToDelete = req.params.id
+  console.log(idToDelete)
   try {
-    const successfulDeletion = await favorite.findByIdAndDelete(idToDelete)
-    res.status(201).json(successfulDeletion);
+    const successfulDeletion = await Favorite.findByIdAndDelete(idToDelete)
+    res.status(200).json(successfulDeletion);
   } catch (err) {
     res.status(400).json({ message: err.message })
   }
