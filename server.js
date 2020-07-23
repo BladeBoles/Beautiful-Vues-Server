@@ -1,12 +1,15 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require("body-parser")
+const bodyParser = express.json();
 const app = express();
 const cors = require('cors');
 const dbConfig = require('./app/config/db.config')
 
 const db = require('./app/models')
 const Role = db.role
+
+require('./app/routes/auth.routes')(app)
+require('./app/routes/user.routes')(app)
 
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`,
@@ -61,8 +64,8 @@ const router = require('./app/routes/quotes.routes');
 const favoritesRouter = require('./app/routes/favorites.routes')
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser);
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use('/quotes', router)
