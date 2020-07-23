@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-const server = express();
+const bodyParser = require("body-parser")
+const app = express();
 const cors = require('cors');
 
 const mongoose = require('mongoose');
@@ -13,11 +14,13 @@ const favoritesRouter = require('./favorites')
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to dertrberse!!'))
 
-server.use(express.json());
-server.use(cors());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-server.use('/quotes', router)
-server.use('/favorites', favoritesRouter)
+
+app.use('/quotes', router)
+app.use('/favorites', favoritesRouter)
 
 const port = process.env.PORT || 3000;
-server.listen(port, () => console.log("Server online!"));
+app.listen(port, () => console.log("Server online!"));
