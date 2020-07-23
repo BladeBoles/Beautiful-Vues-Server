@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = express.json();
+const bodyParser = require("body-parser")
 const app = express();
 const cors = require('cors');
 const dbConfig = require('./app/config/db.config')
@@ -8,8 +8,7 @@ const dbConfig = require('./app/config/db.config')
 const db = require('./app/models')
 const Role = db.role
 
-require('./app/routes/auth.routes')(app)
-require('./app/routes/user.routes')(app)
+
 
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`,
@@ -64,12 +63,14 @@ const router = require('./app/routes/quotes.routes');
 const favoritesRouter = require('./app/routes/favorites.routes')
 
 app.use(cors());
-app.use(bodyParser);
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+require('./app/routes/auth.routes')(app)
+require('./app/routes/user.routes')(app)
 
 app.use('/quotes', router)
 app.use('/favorites', favoritesRouter)
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log("Server online!"));
+app.listen(port, () => console.log("Server online at port ", port));

@@ -4,7 +4,7 @@ const User = db.user
 
 // Why are the findOnes nested?  Seems like they should be separate...
 checkDuplicateUsernameOrEmail = (req, res, next) => {
-  console.log(req)
+  console.log(req.body)
   // Username
   User.findOne({
     username: req.body.username
@@ -53,9 +53,9 @@ checkRolesExisted = (req, res, next) => {
   next();
 }
 
-const verifySignup = {
+const verifySignUp = {
   checkDuplicateUsernameOrEmail,
   checkRolesExisted
 };
 
-module.exports = verifySignup
+module.exports = verifySignUp
