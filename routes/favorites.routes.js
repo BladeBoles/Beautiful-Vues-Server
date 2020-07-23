@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Favorite = require('./favorite');
+const Favorite = require('../models/favorite.model');
 
 router.get('/', async (req, res) => {
   console.log("hello")

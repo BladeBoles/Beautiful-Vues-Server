@@ -7,8 +7,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection
-const router = require('./quotes');
-const favoritesRouter = require('./favorites')
+const router = require('./routes/quotes.routes');
+const favoritesRouter = require('./routes/favorites.routes')
 
 
 db.on('error', (error) => console.error(error));
