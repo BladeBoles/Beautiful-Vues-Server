@@ -1,23 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const Favorite = require('./favorite');
+const Favorite = require('../models/favorite.model');
+const { mongoose } = require('../models');
 
-router.get('/', async (req, res) => {
-  console.log("hello")
+router.get('/myfavorites/:id', async (req, res) => {
+
+  let owner = req.params.id
+  console.log("hello favorites ", owner)
   try {
-    const favorite = await Favorite.find();
+    const favorite = await Favorite.find({ owner });
     res.json(favorite);
   } catch (err) {
+    console.log("Error: ", err)
     res.status(500).json({ message: err.message });
   }
 });
 
 router.post('/', async (req, res) => {
-  console.log("posting")
+  console.log("posting...", req.body)
   const favorite = new Favorite({
     "quote": req.body.quote,
     "author": req.body.author,
-    "image": req.body.image
+    "image": req.body.image,
+    "owner": req.body.owner
   });
 
   try {
@@ -28,7 +33,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   console.log("Trying to delete...")
   const idToDelete = req.params.id
   console.log(idToDelete)
