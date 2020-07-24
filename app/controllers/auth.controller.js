@@ -16,6 +16,7 @@ exports.signup = (req, res) => {
 
   user.save((err, user) => {
     if (err) {
+      console.log("Error: ", err)
       res.status(500).send({ message: err });
       return;
     }
@@ -27,6 +28,7 @@ exports.signup = (req, res) => {
         },
         (err, roles) => {
           if (err) {
+            console.log("Error: ", err)
             res.status(500).send({ message: err });
             return
           }
@@ -34,17 +36,18 @@ exports.signup = (req, res) => {
           user.roles = roles.map(roles => role._id);
           user.save(err => {
             if (err) {
+              console.log("Error: ", err)
               res.status(500).send({ message: err });
               return;
             }
-            console.log("Success registering!")
-            return res.status(201).send({ message: "User was registered successfully!" })
+            res.send({ message: "User was registered successfully!" })
 
           })
         });
     } else {
       Role.findOne({ name: 'user' }, (err, role) => {
         if (err) {
+          console.log("Error: ", err)
           res.status(500).send({ message: err });
           return
         }
@@ -52,6 +55,7 @@ exports.signup = (req, res) => {
         user.roles = [role._id];
         user.save(err => {
           if (err) {
+            console.log("Error: ", err)
             res.status(500).send({ message: err })
             return
           }
@@ -69,6 +73,7 @@ exports.signin = (req, res) => {
     .populate("roles", "-__v")
     .exec((err, user) => {
       if (err) {
+        console.log("Error: ", err)
         res.status(500).send({ message: err });
         return;
       }

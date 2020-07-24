@@ -13,6 +13,7 @@ verifyToken = (req, res, next) => {
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
+      console.log("Error: ", err)
       return res.status(401).send({ message: "Unauthorized!" });
     }
     req.userId = decoded.id;
@@ -23,6 +24,7 @@ verifyToken = (req, res, next) => {
 isAdmin = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
+      console.log("Error: ", err)
       res.status(500).send({ message: err });
       return;
     }
@@ -33,6 +35,7 @@ isAdmin = (req, res, next) => {
       },
       (err, roles) => {
         if (err) {
+          console.log("Error: ", err)
           res.status(500).send({ message: err });
           return;
         }
@@ -54,6 +57,7 @@ isAdmin = (req, res, next) => {
 isModerator = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
+      console.log("Error: ", err)
       res.status(500).send({ message: err });
       return;
     }
@@ -64,6 +68,7 @@ isModerator = (req, res, next) => {
       },
       (err, roles) => {
         if (err) {
+          console.log("Error: ", err)
           res.status(500).send({ message: err });
           return;
         }

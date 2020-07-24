@@ -5,7 +5,10 @@ const Favorite = mongoose.model(
   new mongoose.Schema({
     quote: String,
     author: String,
-    image: String
+    image: String,
+    hd_image: String,
+    comment: String,
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
   })
 
 );

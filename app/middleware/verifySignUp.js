@@ -4,12 +4,13 @@ const User = db.user
 
 // Why are the findOnes nested?  Seems like they should be separate...
 checkDuplicateUsernameOrEmail = (req, res, next) => {
-  console.log(req.body)
+  console.log("The request body is: ", req.body)
   // Username
   User.findOne({
     username: req.body.username
   }).exec((err, user) => {
     if (err) {
+      console.log("Error: ", err)
       res.status(500).send({ message: err });
       return;
     }
@@ -24,6 +25,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
       email: req.body.email
     }).exec((err, user) => {
       if (err) {
+        console.log("Error: ", err)
         res.status(500).send({ message: err });
         return;
       }

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Favorite = require('./favorite.model');
 
 const User = mongoose.model(
   "User",
@@ -12,6 +13,12 @@ const User = mongoose.model(
         ref: "Role"
       }
     ]
+    // favorites: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Favorite"
+    //   }
+    // ]
   })
 );
 
