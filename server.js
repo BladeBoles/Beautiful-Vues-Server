@@ -59,8 +59,10 @@ function initial() {
 }
 
 
-const router = require('./app/routes/quotes.routes');
+const quotesRouter = require('./app/routes/quotes.routes');
 const favoritesRouter = require('./app/routes/favorites.routes')
+const authRouter = require('./app/routes/auth.routes')
+const userRouter = require('./app/routes/user.routes')
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -69,7 +71,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./app/routes/auth.routes')(app)
 require('./app/routes/user.routes')(app)
 
-app.use('/quotes', router)
+// app.use('/api/auth', authRouter)
+// app.use('/api/user', userRouter)
+app.use('/quotes', quotesRouter)
 app.use('/favorites', favoritesRouter)
 
 const port = process.env.PORT || 3000;
