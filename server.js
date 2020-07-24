@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require("body-parser")
 const app = express();
 const cors = require('cors');
-const dbConfig = require('./app/config/db.config')
+// const dbConfig = require('./app/config/db.config')
 
 const db = require('./app/models')
 const Role = db.role
@@ -11,7 +11,7 @@ const Role = db.role
 
 
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`,
+  .connect(process.env.DATABASE_URL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true
@@ -61,8 +61,8 @@ function initial() {
 
 const quotesRouter = require('./app/routes/quotes.routes');
 const favoritesRouter = require('./app/routes/favorites.routes')
-const authRouter = require('./app/routes/auth.routes')
-const userRouter = require('./app/routes/user.routes')
+// const authRouter = require('./app/routes/auth.routes')
+// const userRouter = require('./app/routes/user.routes')
 
 app.use(cors());
 app.use(bodyParser.json());
